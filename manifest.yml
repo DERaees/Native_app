@@ -1,0 +1,37 @@
+manifest_version: 1 # required
+
+artifacts:
+  readme: readme.md
+  setup_script: setup_script.yml
+  extension_code: true
+  default_streamlit: core.snoptimizer
+
+configuration:
+  log_level: debug
+  trace_level: always
+
+
+privileges:
+  - IMPORTED PRIVILEGES ON SNOWFLAKE DB:
+      description: "Account Usages"
+  - CREATE DATABASE:
+      description: "Create Database"
+  - CREATE WAREHOUSE:
+      description: "Create Warehouse"
+  - EXECUTE TASK:
+      description: "Execute Task"
+  - MANAGE WAREHOUSES:
+      description: "Manage warehouses"
+  - EXECUTE MANAGED TASK:
+      description: "Execute Managed Task"
+
+references:
+  - ext_snoptimizer_wh:
+        label: "EXT_SNOPTIMIZER_WH"
+        description: "A warehouse that exists outside the application"
+        privileges:
+            - USAGE
+            - OPERATE
+        object_type: WAREHOUSE
+        multi_valued: false
+        register_callback: config.register_single_callback
